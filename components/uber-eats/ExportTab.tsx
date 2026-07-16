@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { supabase } from '@/lib/supabase'
+import { downloadUberEatsExcel } from '@/lib/uber-eats-export'
 
 export default function ExportTab() {
   const [stats, setStats] = useState({ products: 0, valid: 0, stores: 0 })
@@ -26,15 +27,7 @@ export default function ExportTab() {
   const handleExport = async () => {
     setExporting(true)
     try {
-      const res = await fetch('/api/uber-eats/export')
-      if (!res.ok) throw new Error(await res.text())
-      const blob = await res.blob()
-      const url = URL.createObjectURL(blob)
-      const a = document.createElement('a')
-      a.href = url
-      a.download = `catalogo_uber_eats_${new Date().toISOString().split('T')[0]}.xlsx`
-      a.click()
-      URL.revokeObjectURL(url)
+      await downloadUberEatsExcel()
     } catch (e) {
       alert('Error al exportar: ' + (e as Error).message)
     } finally {
