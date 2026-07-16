@@ -24,3 +24,78 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* ── Boleta imprimible (papel térmico 80mm) ─────────────────────────────── */
+
+.print-only {
+  display: none;
+}
+
+@media print {
+  @page {
+    size: 80mm auto;
+    margin: 0;
+  }
+  body * {
+    visibility: hidden;
+  }
+  .print-only {
+    display: block !important;
+    visibility: visible !important;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 72mm;
+    padding: 4mm;
+  }
+  .print-only * {
+    visibility: visible !important;
+  }
+}
+
+.receipt {
+  font-family: 'Courier New', monospace;
+  font-size: 11px;
+  line-height: 1.35;
+  color: #000;
+  background: #fff;
+}
+
+.receipt-title {
+  font-size: 14px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.receipt-divider {
+  border-top: 1px dashed #000;
+  margin: 6px 0;
+}
+
+.receipt-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 11px;
+}
+
+.receipt-table th,
+.receipt-table td {
+  padding: 1px 0;
+  vertical-align: top;
+}
+
+.receipt-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.receipt-total {
+  font-size: 13px;
+  font-weight: bold;
+  margin: 2px 0;
+}
+
+.receipt-sub {
+  font-size: 9px;
+  color: #333;
+}
