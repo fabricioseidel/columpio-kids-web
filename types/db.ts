@@ -1,3 +1,13 @@
+export type ProductTipo = {
+  nombre?: string
+  imagen?: string
+}
+
+export type ProductFeatures = {
+  subcategoria?: string
+  tipos?: ProductTipo[]
+}
+
 export type Product = {
   id: number
   barcode: string
@@ -5,11 +15,14 @@ export type Product = {
   category: string | null
   purchase_price: number | null
   sale_price: number
+  offer_price: number | null
   stock: number
   reorder_threshold: number | null
   supplier_id: string | null
   image_url: string | null
   description: string | null
+  features: ProductFeatures | null
+  gallery: string[] | null
   is_active: boolean | null
   created_at: string | null
   updated_at: string | null
