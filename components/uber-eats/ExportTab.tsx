@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { supabase } from '@/lib/supabase'
-import { downloadUberEatsExcel } from '@/lib/uber-eats-export'
+import { downloadUberEatsExcel, downloadUberEatsCsv, downloadCatalogJson } from '@/lib/uber-eats-export'
 
 export default function ExportTab() {
   const [stats, setStats] = useState({ products: 0, valid: 0, stores: 0 })
@@ -96,7 +96,7 @@ export default function ExportTab() {
             )}
           </div>
 
-          {/* Export button */}
+          {/* Export buttons */}
           <button
             onClick={handleExport}
             disabled={!canExport || exporting}
@@ -108,6 +108,21 @@ export default function ExportTab() {
               <span className="text-sm">Descargar catálogo Excel</span>
             )}
           </button>
+          <div className="grid grid-cols-2 gap-3 mt-3">
+            <button
+              onClick={() => downloadUberEatsCsv().catch((e) => alert('Error: ' + e.message))}
+              disabled={!canExport}
+              className="py-2.5 border border-gray-300 rounded-lg text-sm font-medium hover:bg-gray-50 disabled:opacity-40 bg-white"
+            >
+              Descargar CSV
+            </button>
+            <button
+              onClick={() => downloadCatalogJson().catch((e) => alert('Error: ' + e.message))}
+              className="py-2.5 border border-gray-300 rounded-lg text-sm font-medium hover:bg-gray-50 bg-white"
+            >
+              Respaldo JSON
+            </button>
+          </div>
 
           {/* Info */}
           <div className="mt-6 bg-gray-50 rounded-lg p-4 text-xs text-gray-500 space-y-1.5">
